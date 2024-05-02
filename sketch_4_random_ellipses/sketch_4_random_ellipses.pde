@@ -1,5 +1,5 @@
 void setup() {
-  size(400, 400);
+  size(650, 650);
 }
 
 void draw() {
@@ -13,9 +13,9 @@ void draw() {
   float h = height;
   float hh = height/2;
   
-  for (int i = 0; i < 15; i++) {
-    float ellipseWidth = map(sin(radians(velocity)), -1, 1, hw, w);
-    float ellipseHeight = map(sin(radians(velocity)), -1, 1, hh, h);
+  for (int i = 0; i < 35; i++) {
+    float ellipseWidth = map(sin(radians(velocity)), -1, 1, -hw, hw);
+    float ellipseHeight = map(sin(radians(velocity)), -1, 1, -hh, hh);
     
     float r = 200;
     float g = 20;
