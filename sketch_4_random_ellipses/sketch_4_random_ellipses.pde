@@ -6,7 +6,8 @@ void draw() {
   background(0);
   fill(0);
   
-  float velocity = frameCount * 0.4;
+  float velocity = frameCount * 1.0;
+  
   float w = width;
   float hw = width/2;
   float h = height;
@@ -14,20 +15,20 @@ void draw() {
   
   for (int i = 0; i < 15; i++) {
     float ellipseWidth = map(sin(radians(velocity)), -1, 1, hw, w);
-    float ellipseHeight = map(sin(-radians(velocity)), -1, 1, hh, h);
+    float ellipseHeight = map(sin(radians(velocity)), -1, 1, hh, h);
     
-    float r = 255 % (i+1);
-    float g = i * 10;
-    float b = 200;
+    float r = 200;
+    float g = 20;
+    float b = 120;
     stroke(r, g, b);
-    strokeWeight(3);
+    strokeWeight(4);
     noFill();
     
     ellipse(
       hw, 
       hh, 
-      ellipseWidth - i * cos(radians(velocity)) * 100, 
-      ellipseHeight - i * sin(radians(velocity)) * 50
+      ellipseWidth - i * cos(radians(velocity)) * 120, 
+      ellipseHeight - i * cos(radians(velocity)) * 120
     );
   }
 }
