@@ -11,14 +11,14 @@ String vowels = "aeiouAEIOU";
 ArrayList<int[]> colorPairs = new ArrayList<int[]>() {
   {
     add(new int[] {0xFF1a1a1d, 0xFFc3073f}); // Dark grey and bright red
-    add(new int[] {0xFF003366, 0xFFffffff}); // Navy blue and white
+    add(new int[] {0xFF2980b9, 0xFFecf0f1}); // Blue and light grey
     add(new int[] {0xFF000000, 0xFFff00ff}); // Black and magenta
     add(new int[] {0xFF000080, 0xFFffff00}); // Navy blue and yellow
     add(new int[] {0xFF2c3e50, 0xFFecf0f1}); // Midnight blue and light grey
     add(new int[] {0xFF34495e, 0xFFe74c3c}); // Dark blue-grey and red
     add(new int[] {0xFF1abc9c, 0xFF2c3e50}); // Teal and dark blue-grey
+    add(new int[] {0xFF003366, 0xFF6699cc}); // Navy blue and light blue
     add(new int[] {0xFF2ecc71, 0xFFe74c3c}); // Bright green and red
-    add(new int[] {0xFF2980b9, 0xFFecf0f1}); // Blue and light grey
     add(new int[] {0xFF8e44ad, 0xFFecf0f1}); // Purple and light grey
     add(new int[] {0xFFd35400, 0xFFecf0f1}); // Orange and light grey
     add(new int[] {0xFFc0392b, 0xFFecf0f1}); // Red and light grey
@@ -77,11 +77,12 @@ int nConsonants(String str) {
 int getSectionsBasedOnLength(int length) {
   int[] validSections = {4, 6, 8, 10, 12, 14, 16, 18}; // Valid section counts
   int index = length % validSections.length; // Use length to find the index
-  return validSections[index];
+  return validSections[index]; // 2 for one shape only
 }
 
 void setup() {
-  size(700, 700);
+  //size(700, 700);
+  fullScreen();
   smooth();
   //noLoop();
 }
@@ -90,7 +91,7 @@ int colorIndex = 0;
 int nameIndex = 0;
 
 void draw() {
-  if (frameCount % 200 == 1) {
+  if (frameCount % 255 == 1) {
     colorIndex++;
     if (colorIndex >= colorPairs.size()) {
       colorIndex = 0;
@@ -137,10 +138,10 @@ void draw() {
   int parts = constrain(name.length(), 0, 14); // Number of shapes per section
   float size = name.length(); // size of one single shape
   int shape = ((name.length()) % N_SHAPES) + 1;
-  
+
   boolean showDouble = nVowels(name) % 2 == 0;
   boolean showCenter = nConsonants(name) % 2 == 0;
-  
+
   int shapeColor = colorPairs.get(colorIndex)[1];
   stroke(shapeColor);
   fill(shapeColor, 1);
@@ -165,11 +166,7 @@ void draw() {
         float y = yOffset;
 
         switch(shape) {
-        case 1:
-          // Square
-          rect(x, y, size, size);
-          if (showDouble) rect(x-(size/2), y-(size/2), size, size);
-          break;
+
         case 2:
           // Line
           line(x, y, size, size);
@@ -181,6 +178,11 @@ void draw() {
           if (showDouble) rect(x-(size/2), y-(size/2), size, size*3);
           break;
         case 4:
+          // Square
+          rect(x, y, size, size);
+          if (showDouble) rect(x-(size/2), y-(size/2), size, size);
+          break;
+        case 6:
           // Circle
           ellipse(x, y, size, size);
           if (showDouble) ellipse(x-(size/2), y-(size/2), size, size);
@@ -190,7 +192,7 @@ void draw() {
           ellipse(x, y, size, size*3);
           if (showDouble) ellipse(x-(size/2), y-(size/2), size, size*3);
           break;
-        case 6:
+        case 1:
           // Arc
           float start = PI / 4;    // Start angle in radians
           float stop = PI + PI / 4; // Stop angle in radians
@@ -243,5 +245,6 @@ void draw() {
 
   fill(shapeColor);
   textAlign(CENTER, CENTER);
+  textSize(18);
   text(name, width / 2, height - 10);
 }
