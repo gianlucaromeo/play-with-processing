@@ -90,7 +90,7 @@ int colorIndex = 0;
 int nameIndex = 0;
 
 void draw() {
-  if (frameCount % 50 == 1) {
+  if (frameCount % 200 == 1) {
     colorIndex++;
     if (colorIndex >= colorPairs.size()) {
       colorIndex = 0;
@@ -134,18 +134,17 @@ void draw() {
 
   SECTIONS = getSectionsBasedOnLength(name.length());
 
-  int parts = constrain(name.length(), 0, 14); // Number of symmetries
-  float size = name.length();
+  int parts = constrain(name.length(), 0, 14); // Number of shapes per section
+  float size = name.length(); // size of one single shape
   int shape = ((name.length()) % N_SHAPES) + 1;
-  float sw = 0.5; // (nConsonants(name) % 2) + 1; // Stroke weight
+  
   boolean showDouble = nVowels(name) % 2 == 0;
   boolean showCenter = nConsonants(name) % 2 == 0;
-
+  
   int shapeColor = colorPairs.get(colorIndex)[1];
-  fill(shapeColor, 0);
-
   stroke(shapeColor);
-  strokeWeight(sw);
+  fill(shapeColor, 1);
+  strokeWeight(0.5);
 
   for (int r = 1; r <= SECTIONS / 2; r++) {
     for (int c = 1; c <= SECTIONS / 2; c++) {
